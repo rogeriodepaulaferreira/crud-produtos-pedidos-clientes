@@ -75,6 +75,11 @@ class CustomersController extends CI_Controller {
 			$this->form_validation->set_rules('name','Nome','required|min_length[3]');
 			$this->form_validation->set_rules('email','E-mail','required|is_unique[customers.email]|valid_email');
 
+			if (isset($addresses['zipcode']) == false){
+				$this->session->set_flashdata('error','Fornecedores devem ter ao menos 2 endereços !');
+				$validate_fornecedores = false;
+			}
+
 			if ($type==2 && count($addresses['zipcode']) < 2 ){
 				$this->session->set_flashdata('error','Fornecedores devem ter ao menos 2 endereços !');
 				$validate_fornecedores = false;
